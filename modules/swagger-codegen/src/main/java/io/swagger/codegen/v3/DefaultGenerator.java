@@ -477,6 +477,8 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
             return;
         }
         Map<String, List<CodegenOperation>> paths = processPaths(this.openAPI.getPaths());
+        //System.out.println("get paths: " + this.openAPI.getPaths().keySet());
+        //System.out.println("processedPaths: " + paths.keySet());
         Set<String> apisToGenerate = null;
         String apiNames = System.getProperty("apis");
         if(apiNames != null && !apiNames.isEmpty()) {
@@ -490,6 +492,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
                 }
             }
             paths = updatedPaths;
+            //System.out.println("updatedPaths: " + paths.keySet());
         }
         for (String tag : paths.keySet()) {
             try {
@@ -912,6 +915,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
         final Map<String, SecurityScheme> securitySchemes = openAPI.getComponents() != null ? openAPI.getComponents().getSecuritySchemes() : null;
         final List<SecurityRequirement> globalSecurities = openAPI.getSecurity();
         for (Tag tag : tags) {
+            //System.out.println("TAG: " + tag.getName());
             try {
                 CodegenOperation codegenOperation = config.fromOperation(resourcePath, httpMethod, operation, schemas, openAPI);
                 codegenOperation.tags = new ArrayList<>(tags);
